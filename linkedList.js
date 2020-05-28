@@ -76,12 +76,115 @@ function List() {
       }
     }
   }
-  // 判空
-
-  // size
+  this.isEmpty = function(){ return length === 0 } 
+  this.size = function(){ return length }
+// 复杂度 O(n)
 
 }
 // 双向链表
 
-// 循环链表
+function doubleLinkedList() {
+  let Node = function (element) {
+    this.prev = null ;
+    this.next = null;
+    this.element = element;
+  }
+  let head = null;
+  let length = 0;
+  let tail = null; // 记录尾节点,便于添加删除操作，提升效率，算是牺牲空间换取时间
+  // 插入节点
+  this.insert = function (position, element) {
+    let node = new Node(element)
+    let prev = head,
+        cur = head,
+        index = 0;
+    if (position === 0) {
+      if (!head) {
+        head = node;
+        tail = node;
+        }else {
+          node.next = head;
+          head.prev = node
+          head = node
+        }
+    } else if (position === length) {
+      node.prev = tail;
+      tail.next = node;
+      tail = node;
+    } else if (position < length) {
+      while (index < position){
+        prev = cur
+        cur = cur.next
+        index ++
+      }
+      prev.next = node;
+      node.prev = prev;
+      cur.prev = node;
+      node.next = cur;
+    }
+  }
+
+    // 删除某个位置的节点
+    this.remove = function(position) {
+      if (position >= 0 && position < length && length >0) {
+        let index = 0;
+        let prev = head,
+        curr = head;
+        if (position === 0) {
+          if (length === 1) {
+            head = null;
+            tail = null;
+          } else {
+            head = curr.next
+            head.prev = null;
+          }
+        }
+        while(index < position) {
+          prev = curr;
+          curr = curr.next
+          index ++
+        }
+        // 删除prev
+        prev.next = curr.next;
+        curr.next.prev = prev;
+
+        length--
+        return curr.element
+      } else {
+        return null
+      }
+    }
+
+    // 查找
+
+    // 复杂度分析
+
+}
+
+// 循环链表（单链表循环）
+// 对循环链表的特点了解还不够暂且搁置------------------后续对链表有一翻认识后补上
+
+function cycleLinkedList() {
+  let Node = function (element) {
+    this.element = element;
+    this.next = null
+  }
+  // 初始头节点为 null
+  let head = null
+  
+  // 链表长度
+  let length = 0
+  // 操作
+  this.search = function(element) {
+
+  }
+  this.insert = function(positon, element) {
+    if (position ) {
+
+    }
+  }
+  this.removeAt = function(position){}
+  this.isEmpty = function(){ return length === 0 } 
+  this.size = function(){ return length }
+}
 
