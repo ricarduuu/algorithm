@@ -1,5 +1,5 @@
 // 链表，查找/插入/删除       复杂度分析
-
+// https://juejin.im/post/5e8defe95188257a6a0bc870#heading-12
 // 单向链表
 function List() {
   let Node = function () {
@@ -188,3 +188,28 @@ function cycleLinkedList() {
   this.size = function(){ return length }
 }
 
+
+
+
+// 合并两个有序的单向链表，并排序    递归极简
+/**
+ * 比如 1-2-3-4 1-3-5-6
+ * 合并为 1-1-2-3-3-4-5-6
+ */
+
+ function mergeLinkedList(l1, l2) {
+    if (!l1) {
+      return l2
+    }
+    if (!l2) {
+      return l1
+    }
+
+    if (l1.element <= l2.element) {
+      l1.next = mergeLinkedList(l1.next, l2)
+      return l1
+    } else {
+      l2.next = mergeLinkedList(l2.next, l1)
+      return l2
+    }
+ }
