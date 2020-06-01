@@ -213,3 +213,56 @@ function cycleLinkedList() {
       return l2
     }
  }
+
+ // hash表 解决查找符合两数之和的元素
+ /**
+  * arr: [0,2,7,1,6]    target: 9
+  * res: [1,2]
+  * 时间复杂度 O（n）
+  **/
+
+  function twoSum(arr, target) {
+    const hash = new Map();
+    for (let i = 0; i < arr.length; i++) {
+      if (hash.has(arr[i])) {
+        return [hash.get(arr[i]), i]
+      }  
+      hash.set(arr[i], i)
+    }
+    return []
+  }
+
+
+
+  // 数组扁平化去重排序
+  flatArr = arr.flat() // flat() 方法对node版本有要求，至少需要12.0以上
+  disArr = Array.form((new Set(flatArr)))
+  disArr.sort((a, b) => a- b)
+
+
+// 计算两个数组的交集
+
+function intersection(arr1, arr2) {
+  return [...new Set(arr1.filter(item => arr2.includes(item)))]
+}
+
+// 如果要计算多个数组的交集需要使用累加器 reduce
+/**
+ * 1111111111111
+ * 累加器的重要性和特点解释
+ *  为啥一直对累加器很迷
+ * 当累加器对一个数组进行操作的时候，累加器中的函数每次执行完成都返回一个值，下次还会对这个值进行操作的
+ * 累加器对数组集合操作，返回的当然是一个数组了，下一次还是对上次返回的数组进行操作
+ **/
+function multIntersection (...args) {
+  if (args.length === 0) {
+    return
+  }
+  if (args.length === 1) {
+    return args[0]
+  }
+  // /....
+  return [...new Set(args.reduce((result, arg) => {
+    return result.filter(item => arg.includes(item))
+  }))]
+}
