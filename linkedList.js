@@ -57,7 +57,7 @@ function List() {
       while(p.next) {
         p = p.next
       }
-      p.next = p.node
+      p.next = node
     }
     length += 1;
   }
@@ -168,10 +168,11 @@ function cycleLinkedList() {
   let Node = function (element) {
     this.element = element;
     this.next = null
+    this.prev = null
   }
   // 初始头节点为 null
   let head = null
-  
+  let tail = null
   // 链表长度
   let length = 0
   // 操作
@@ -179,9 +180,7 @@ function cycleLinkedList() {
 
   }
   this.insert = function(positon, element) {
-    if (position ) {
 
-    }
   }
   this.removeAt = function(position){}
   this.isEmpty = function(){ return length === 0 } 
@@ -226,7 +225,7 @@ function cycleLinkedList() {
     for (let i = 0; i < arr.length; i++) {
       if (hash.has(arr[i])) {
         return [hash.get(arr[i]), i]
-      }  
+      }
       hash.set(arr[i], i)
     }
     return []
