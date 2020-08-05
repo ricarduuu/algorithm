@@ -265,3 +265,4 @@ function multIntersection (...args) {
     return result.filter(item => arg.includes(item))
   }))]
 }
+
