@@ -21,4 +21,15 @@ var lengthOfLongestSubstring = function(s) {
   return ans;
 };
 
+var lenngth = function (s) {
+    const len = s.length
+    let str = ''
+    let l = 0;
+    for (let i = 0; i < n; ++i) {
+        // 下面这块和上边的逻辑差不多
+        if (str.indexOf( s.charAt(i) ) > -1) {
+            l = i + 1
+        }
+    }
+}
 
