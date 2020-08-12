@@ -6,22 +6,25 @@
 
 
 // 二分法
-let findMiddleNum = function (m, n) {
-  if (!m && !n) { retutn }
+let 
+findMiddleNum = function (m, n) {
+  if (!m && !n) { return }
   let arr = []
   let brr = []
-  const mLen = m && m.length || 0
-  const nLen = n && n.length || 0
+  const mLen = m && (m.length || 0)
+  const nLen = n && (n.length || 0)
   if (mLen % 2 === 0 && mLen) {
-    arr = [m[m/2 - 1], m[m/2]]
-  }else {
-    arr = [m[parseInt(m / 2)]]
+    arr = [m[mLen/2 - 1], m[mLen/2]]
+  }else if (mLen) {
+    arr = [m[parseInt(mLen / 2)]]
   }
   if (nLen % 2 === 0 && nLen) {
-    brr = [n[n/2 - 1], n[n/2]]
-  }else {
-    brr = [n[parseInt(n / 2)]]
+    brr = [n[nLen/2 - 1], n[nLen/2]]
+  }else if (nLen) {
+    brr = [n[parseInt(nLen / 2)]]
   }
   let crr = arr.concat(brr)
-  crr = crr.sort();
+  let num = crr.reduce((init, x) => init + x )
+  return num / crr.length
 }
+// 第 k 小数解法
