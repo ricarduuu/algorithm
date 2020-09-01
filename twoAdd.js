@@ -2,8 +2,8 @@
 // (2 -> 4 -> 3) + (5 -> 6 -> 4)
 //  输出：7 -> 0 -> 8， 原因：342 + 465 = 807
 // 先写链表和链表的插入
-let Node = function(element) {
-  this.element = element;
+let Node = function(val) {
+  this.val = val;
   this.next = null;
 }
 
@@ -19,14 +19,14 @@ function add(l1, l2) {
   let res = new Node();
   let current = res;
   let carryFlag = 0; // 进位
-  let element = 0;
+  let val = 0;
   while (l1 || l2){
-    let a = l1.element || 0;
-    let b = l2.element || 0;
+    let a = l1.val || 0;
+    let b = l2.val || 0;
 
-    element = (a + b + carryFlag ) % 10;
+    val = (a + b + carryFlag ) % 10;
     carryFlag = Math.floor((a + b + carryFlag) / 10);
-    current.next = new Node(element);
+    current.next = new Node(val);
     current = current.next;
     l1 = l1 ? l1.next : null;
     l2 = l2 ? l2.next : null;
