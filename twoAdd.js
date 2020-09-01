@@ -2,35 +2,61 @@
 // (2 -> 4 -> 3) + (5 -> 6 -> 4)
 //  输出：7 -> 0 -> 8， 原因：342 + 465 = 807
 // 先写链表和链表的插入
-let Node = function(val) {
+let ListNode = function(val) {
   this.val = val;
   this.next = null;
 }
 
-let l1 = new Node(2);
-l1.next = new Node(4);
-l1.next.next = new Node(3);
+let l1 = new ListNode(2);
+l1.next = new ListNode(4);
+l1.next.next = new ListNode(3);
 
-let l2 = new Node(5);
-l2.next = new Node(6);
-l2.next.next = new Node(4);
+let l2 = new ListNode(5);
+l2.next = new ListNode(6);
+l2.next.next = new ListNode(4);
 
-function add(l1, l2) {
-  let res = new Node();
+  /**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function(l1, l2) {
+let res = new ListNode();
   let current = res;
   let carryFlag = 0; // 进位
   let val = 0;
   while (l1 || l2){
+<<<<<<< HEAD
     let a = l1.val || 0;
     let b = l2.val || 0;
 
     val = (a + b + carryFlag ) % 10;
     carryFlag = Math.floor((a + b + carryFlag) / 10);
     current.next = new Node(val);
+=======
+    let a = l1 ? l1.val || 0 : 0;
+    let b = l2 ? l2.val || 0 : 0;
+
+    val = (a + b + carryFlag ) % 10;
+    carryFlag = Math.floor((a + b + carryFlag) / 10);
+    current.next = new ListNode(val);
+>>>>>>> e4ba3f26ccb66f48587a70ae219865cffb858ce2
     current = current.next;
     l1 = l1 ? l1.next : null;
     l2 = l2 ? l2.next : null;
   }
+  // 缺少 进位，但是下一个位置没有值相加的情况。因为进位都是在下一次才计算的
+  if (carryFlag) {
+    current.next = new ListNode(carryFlag);
+    current = current.next;
+  }
   return res.next
-}
-console.log(add(l1, l2))
+};
+console.log(addTwoNumbers(l1, l2))
