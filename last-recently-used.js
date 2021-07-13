@@ -97,14 +97,84 @@ class LRUCache1 {
 }
 
 // @3 hash表+双向链表实现
-function linkNode(val) {
+function Node(key, val) {
+  this.key = key;
+  this.val = val;
+}
+function linkNode(key, val) {
+  this.key = key;
   this.val = val;
   this.prev = null;
   this.next = null;
 }
+class DoubleLink {
+  constructor() {
+    this.head = new linkNode(-1, -1);
+    this.tail = new linkNode();
+    this.size = 0;
+    this.head.next = this.tail;
+    this.tail.prev = this.head;
+  }
+  addFirst = function (node) {
+    const next = this.head.next;
+    this.head.next = node;
+    next.prev = node;
+    node.prev = this.head;
+    node.next = next;
+  };
+  remove = function (node) {
+    node.prev.next = node.next;
+    node.next.prev = node.prev;
+  };
+  removeTail = function () {
+    const node = this.tail.prev;
+    this.tail.prev = node.prev;
+    node.prev.next = this.tail;
+    return node;
+  };
+}
 function LRUCache(capacity) {
   this.capacity = capacity;
-  this.head = new linkNode();
-  this.get = function (key) {}
-  this.put = function (key, val){}
+  // 初始化hash映射表
+  this.map = new Map();
+  // 初始化双向链表
+  this.cache = new DoubleLink();
 }
+LRUCache.prototype.get = function (key) {
+  const {map} = this;
+  const mapNode = map.get(key);
+  if (!mapNode) return -1;
+  else {
+    this.cache.remove(mapNode);
+    //再插入第一个
+    this.cache.addFirst(mapNode);
+    const {val} = mapNode;
+    return val;
+  }
+};
+LRUCache.prototype.put = function (key, val) {
+  const {map} = this;
+  const mapNode = map.get(key);
+  if (!mapNode) {
+    // 不存在key
+    const node = new Node(key, val);
+    this.cache.addFirst(node);
+    this.map.set(key, node);
+    this.cache.size++;
+    if (this.cache.size > this.capacity) {
+      const {key} = this.cache.removeTail();
+      // map删除
+      this.map.delete(key);
+      this.cache.size--;
+    }
+  }
+  if (mapNode) {
+    // 先删除
+    console.log(173, mapNode);
+    this.cache.remove(mapNode);
+    //再插入第一个
+    mapNode.val = val;
+    this.cache.addFirst(mapNode);
+    this.map.set(key, mapNode);
+  }
+};
